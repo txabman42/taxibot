@@ -1,0 +1,2 @@
+# taxibot
+Freshy trading bot
