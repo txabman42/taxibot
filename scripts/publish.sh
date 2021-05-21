@@ -11,10 +11,24 @@ if [[ -z "${DOCKER_PASSWORD}" ]]; then
     echo 'DOCKER_PASSWORD env variable is empty'; exit 1;
 fi
 
+while getopts "t:" opt; do
+  case $opt in
+    t) release="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    ;;
+  esac
+done
+
 docker_hub_prefix="xmartinezb"
 image="taxibot"
-image_hub=$docker_hub_prefix/$image
+tag="latest"
 
+if [[ $release == "on" ]]; then
+    tag=$(git describe --abbrev=0 --tags)   
+fi
+
+image_hub=$docker_hub_prefix/$image:$tag
 
 # push to DockerHub
 echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
