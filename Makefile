@@ -1,4 +1,4 @@
-.PHONY: clean deps deps-sync fmt vet lint build install run test cover mocks
+.PHONY: clean deps fmt vet lint build install run test cover image release deploy
 
 app_name = taxibot
 build_path = bin/
@@ -31,3 +31,12 @@ test: lint
 
 cover: test
 	go tool cover -html=${app_name}.out -o=${app_name}.html
+
+image:
+	./scripts/image.sh
+
+publish:
+	./scripts/publish.sh
+
+deploy:
+	./scripts/deploy.sh
