@@ -2,6 +2,8 @@
 
 set -eufo pipefail
 
+release="off"
+
 # check required commands and env variables are in place
 command -v docker >/dev/null 2>&1 || { echo 'please install docker or use image that has it'; exit 1; }
 if [[ -z "${DOCKER_USERNAME}" ]]; then

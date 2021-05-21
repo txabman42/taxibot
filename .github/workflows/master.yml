@@ -3,7 +3,7 @@ name: Push master
 on:
   push:
     branches:
-    — master
+      - master
 
 jobs:
   lint:
@@ -20,6 +20,7 @@ jobs:
         run: make lint
   build:
     name: Build
+    needs: lint
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -33,10 +34,25 @@ jobs:
           go-version: 1.16
       - name: Check out code
         uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
       - name: Build
         run: make build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: bin
+          path: ./bin
   test:
     name: Test
+    needs: build
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
@@ -51,12 +67,19 @@ jobs:
         run: make test
   publish:
     name: Publish docker image
+    needs: test
     runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: bin
+          path: /bin
       - name: build
-        run: make release #tag: latest
+        run: make image #tag: latest
       - name: publish
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: make publish

@@ -17,6 +17,7 @@ jobs:
         run: make lint
   build:
     name: Build
+    needs: lint
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
@@ -31,6 +32,7 @@ jobs:
         run: make build
   test:
     name: Test
+    needs: build
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on

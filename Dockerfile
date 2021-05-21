@@ -1,4 +1,4 @@
-FROM gitlab.otters.xyz:5005/product/systems/dockerfiles/docker-base-alpine/docker-base-alpine:latest
+FROM golang:1.16-alpine
 
 EXPOSE 80
 
