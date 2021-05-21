@@ -1,0 +1,48 @@
+name: Pull request to master
+
+on:
+  pull_request:
+    branches:
+      — master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Lint
+        run: make lint
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build
+        run: make build
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Test
+        run: make test
