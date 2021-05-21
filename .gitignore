@@ -14,8 +14,12 @@
 # Dependency directories (remove the comment below to include it)
 vendor/
 
-#Others
+# Go
 bin/
-.test_coverage.txt
-.idea/
+
+# Taxibot
 taxibot
+taxibot.html
+
+# Others
+.idea/
