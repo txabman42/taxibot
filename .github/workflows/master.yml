@@ -3,7 +3,7 @@ name: Push master
 on:
   push:
     branches:
-      — master
+    — master
 
 env:
   GO111MODULE: on
