@@ -5,9 +5,6 @@ on:
     branches:
     — master
 
-env:
-  GO111MODULE: on
-
 jobs:
   lint:
     name: Lint
@@ -24,6 +21,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
     steps:
       - name: Set up Go
         uses: actions/setup-go@v2
@@ -36,6 +35,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
     steps:
       - name: Set up Go
         uses: actions/setup-go@v2
