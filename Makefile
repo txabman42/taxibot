@@ -18,7 +18,10 @@ vet:
 lint: fmt vet
 
 build: lint clean
-	go build -o ${build_path}${app_name} -v .
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${build_path}${app_name} -v .
+
+build-mac: lint clean
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${build_path}${app_name} -v .
 
 install:
 	go install -v .

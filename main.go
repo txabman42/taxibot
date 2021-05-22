@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,6 +13,7 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
+	fmt.Println(`{"alive": true}`)
 	_, _ = io.WriteString(w, `{"alive": true}`)
 }
 
@@ -19,5 +21,5 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/health", HealthCheckHandler)
 
-	log.Fatal(http.ListenAndServe("localhost:8080", r))
+	log.Fatal(http.ListenAndServe(":80", r))
 }

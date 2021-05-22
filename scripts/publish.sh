@@ -33,8 +33,6 @@ fi
 
 image_hub=$jfrog_server/$repository_name/$image:$tag
 
-echo "IMAGE HUB $image_hub"
-
 # push to DockerHub
 echo ${JFROG_PASSWORD} | docker login $jfrog_server -u ${JFROG_USERNAME} --password-stdin
 docker tag $image $image_hub
