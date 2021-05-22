@@ -70,8 +70,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     env:
-      DOCKER_USERNAME: ${{ secrets.JFROG_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+      JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
+      JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
     steps:
       - name: Check out code
         uses: actions/checkout@v2
