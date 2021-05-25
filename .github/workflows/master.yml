@@ -90,6 +90,7 @@ jobs:
     env:
       JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
       JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+      OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }}
     steps:
       - name: Check out code
         uses: actions/checkout@v2
