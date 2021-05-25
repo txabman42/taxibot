@@ -85,7 +85,7 @@ jobs:
         run: make publish
   deploy:
     name: Deploy helm image
-    needs: test
+    needs: publish
     runs-on: ubuntu-latest
     env:
       JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
