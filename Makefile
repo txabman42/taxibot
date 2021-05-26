@@ -19,6 +19,7 @@ lint: fmt vet
 
 build: lint clean
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${build_path}${app_name} -v .
+	chmod +x ${build_path}/${app_name}
 
 build-mac: lint clean
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${build_path}${app_name} -v .
