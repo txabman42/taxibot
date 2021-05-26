@@ -10,3 +10,4 @@ LABEL BUILD_TAG=$BUILD_TAG
 
 COPY bin/taxibot /taxibot
 
+RUN chmod +x /taxibot
